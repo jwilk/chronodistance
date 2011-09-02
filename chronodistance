@@ -1,0 +1,70 @@
+#!/usr/bin/python
+# encoding=UTF-8
+
+# Copyright © 2011 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import argparse
+import subprocess as ipc
+import datetime
+
+import webhelpers.date as datehelper
+
+granularities = [
+    'century',
+    'decade',
+    'year',
+    'month',
+    'day',
+    'hour',
+    'minute',
+    'second',
+]
+
+def parse_timestamp(ts=None):
+    if ts is None:
+        # Shortcut:
+        return datetime.datetime.utcnow()
+    args = ['date', '--date={0}'.format(ts), '+%s']
+    child = ipc.Popen(args, stdout=ipc.PIPE, stderr=ipc.PIPE)
+    stdout, stderr = child.communicate()
+    if stderr:
+        stderr = stderr.decode('ASCII')
+        raise ValueError('Cannot parse date: %s' % stderr)
+    stdout = stdout.decode('ASCII')
+    return datetime.datetime.utcfromtimestamp(int(stdout))
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-g', dest='granularity', choices=granularities, default='minute')
+    parser.add_argument('src', metavar='SRC')
+    parser.add_argument('dst', metavar='DST', nargs='?')
+    options = parser.parse_args()
+    src = parse_timestamp(options.src)
+    dst = parse_timestamp(options.dst)
+    print(datehelper.distance_of_time_in_words(
+        from_time=src, to_time=dst,
+        granularity=options.granularity
+    ))
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et
