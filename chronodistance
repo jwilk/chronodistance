@@ -22,6 +22,7 @@
 # SOFTWARE.
 
 import argparse
+import os
 import subprocess as ipc
 import datetime
 
@@ -52,6 +53,7 @@ def parse_timestamp(ts=None):
     return datetime.datetime.utcfromtimestamp(int(stdout))
 
 def main():
+    os.environ['LC_ALL'] = 'C'
     parser = argparse.ArgumentParser()
     parser.add_argument('-g', dest='granularity', choices=granularities, default='minute')
     parser.add_argument('src', metavar='SRC')
