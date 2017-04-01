@@ -6,4 +6,4 @@ This is a simple command-line wrapper over the
 
 .. _webhelpers.date.distance_of_time_in_words: http://docs.pylonsproject.org/projects/webhelpers/en/latest/modules/date.html#webhelpers.date.distance_of_time_in_words
 
-.. vim:ts=3 sts=3 sw=3 et
+.. vim:ts=3 sts=3 sw=3 et ft=rst
