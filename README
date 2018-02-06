@@ -1,5 +1,7 @@
 This is a simple command-line wrapper over the
-`webhelpers.date.distance_of_time_in_words`_ function::
+`webhelpers.date.distance_of_time_in_words`_ function:
+
+.. code:: console
 
    $ chronodistance -g day 2003-04-14 2004-12-01
    1 year, 7 months and 17 days
