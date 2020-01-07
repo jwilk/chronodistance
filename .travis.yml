@@ -14,7 +14,7 @@ install:
 - pip install pydiatra $pyflakes
 - $if_rstlint pip install restructuredtext-lint pygments
 script:
-- ./chronodistance -g day 2003-04-14 2004-12-01
+- prove -v
 - py2diatra chronodistance
 - pyflakes chronodistance
 - $if_rstlint restructuredtext-lint --encoding=UTF-8 README
