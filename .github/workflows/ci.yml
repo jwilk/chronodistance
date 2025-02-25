@@ -7,13 +7,14 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-20.04
+        - ubuntu-22.04
     runs-on: ${{matrix.os}}
     steps:
     - uses: actions/checkout@v4
     - name: set up Python 2.7
       run: |
-        sudo apt-get install python-is-python2
+        sudo apt-get install python2
+        sudo ln -sf python2 /usr/bin/python
         wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
         sudo python get-pip.py
         rm get-pip.py
