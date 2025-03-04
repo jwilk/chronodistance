@@ -26,12 +26,12 @@ def parse_timestamp(ts=None):
     if ts is None:
         # Shortcut:
         return datetime.datetime.utcnow()
-    args = ['date', '--date={0}'.format(ts), '+%s']
+    args = ['date', f'--date={ts}', '+%s']
     child = ipc.Popen(args, stdout=ipc.PIPE, stderr=ipc.PIPE)
     stdout, stderr = child.communicate()
     if stderr:
         stderr = stderr.decode('ASCII')
-        raise ValueError('Cannot parse date: {stderr}'.format(stderr=stderr))
+        raise ValueError(f'Cannot parse date: {stderr}')
     stdout = stdout.decode('ASCII')
     return datetime.datetime.utcfromtimestamp(int(stdout))
 
