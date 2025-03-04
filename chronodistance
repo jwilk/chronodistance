@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding=UTF-8
 
 # Copyright © 2011-2026 Jakub Wilk <jwilk@jwilk.net>
@@ -9,7 +9,7 @@ import datetime
 import os
 import subprocess as ipc
 
-import webhelpers.date as datehelper
+import webhelpers2.date as datehelper
 
 granularities = [
     'century',
