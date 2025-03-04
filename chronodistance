@@ -29,7 +29,11 @@ def parse_timestamp(ts=None):
         # Shortcut:
         return datetime.datetime.utcnow()
     args = ['date', f'--date={ts}', '+%s']
-    child = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='ASCII')
+    child = subprocess.run(args,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        encoding='ASCII'
+    )
     if child.stderr:
         raise ValueError(f'Cannot parse date: {child.stderr}')
     return datetime.datetime.utcfromtimestamp(int(child.stdout))
