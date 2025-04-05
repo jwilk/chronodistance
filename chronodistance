@@ -27,7 +27,7 @@ granularities = [
 def parse_timestamp(ts=None):
     if ts is None:
         # Shortcut:
-        return datetime.datetime.utcnow()
+        return datetime.datetime.now(datetime.timezone.utc)
     args = ['date', f'--date={ts}', '+%s']
     child = subprocess.run(args,
         stdout=subprocess.PIPE,
@@ -36,7 +36,7 @@ def parse_timestamp(ts=None):
     )
     if child.stderr:
         raise ValueError(f'Cannot parse date: {child.stderr}')
-    return datetime.datetime.utcfromtimestamp(int(child.stdout))
+    return datetime.datetime.fromtimestamp(int(child.stdout), datetime.timezone.utc)
 
 def main():
     os.environ['LC_ALL'] = 'C'
