@@ -44,6 +44,7 @@ def main():
     ap.add_argument('-g', dest='granularity', metavar='GRANULARITY', choices=granularities, default='minute',
         help=('choices: '  + str.join(', ', granularities))
     )
+    ap.color = False
     ap.add_argument('src', metavar='SRC')
     ap.add_argument('dst', metavar='DST', nargs='?')
     options = ap.parse_args()
