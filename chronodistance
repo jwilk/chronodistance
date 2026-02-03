@@ -37,11 +37,11 @@ def parse_timestamp(ts=None):
 
 def main():
     os.environ['LC_ALL'] = 'C'
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-g', dest='granularity', choices=granularities, default='minute')
-    parser.add_argument('src', metavar='SRC')
-    parser.add_argument('dst', metavar='DST', nargs='?')
-    options = parser.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-g', dest='granularity', choices=granularities, default='minute')
+    ap.add_argument('src', metavar='SRC')
+    ap.add_argument('dst', metavar='DST', nargs='?')
+    options = ap.parse_args()
     src = parse_timestamp(options.src)
     dst = parse_timestamp(options.dst)
     print(datehelper.distance_of_time_in_words(
